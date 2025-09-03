@@ -1,0 +1,6 @@
+security:
+  jwt:
+    secret: "DYOKLYRVAeBuprgaqNsKe8hnAWaQudwjmaSquuxy9og="
+    issuer: carrental-auth
+    access-minutes: 15
+    refresh-days: 30

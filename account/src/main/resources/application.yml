@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/carrental
+    username: jasonzeng
+    password: ""
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
+  logging:
+    level:
+      org.hibernate.SQL: debug
+
+app:
+  jwt:
+    secret: "DYOKLYRVAeBuprgaqNsKe8hnAWaQudwjmaSquuxy9og="
+    access-minutes: 15
+    refresh-days: 30
+
+server:
+  port: 8081
