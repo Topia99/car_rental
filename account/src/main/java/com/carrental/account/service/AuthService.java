@@ -2,6 +2,7 @@ package com.carrental.account.service;
 
 import com.carrental.account.doa.AccountRepository;
 import com.carrental.account.model.Account;
+import com.carrental.account.model.Role;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -34,7 +35,11 @@ public class AuthService {
         Account user = repo.findByEmail(principalEmail)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found"));
 
-        var access = jwt.generateAccessToken(user.getEmail(), user.getId(), Map.of("role", "USER"));
+        var access = jwt.generateAccessToken(user.getEmail(), user.getId(),
+                user.getRoles()
+                        .stream()
+                        .map(Role::name)
+                        .toList());
         var refresh = jwt.generateRefreshToken(user.getId());
         return new TokenPair(access, refresh);
     }
@@ -57,7 +62,11 @@ public class AuthService {
         Account user = repo.findById(uid)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
 
-        var access = jwt.generateAccessToken(user.getEmail(), user.getId(), Map.of("role", "USER"));
+        var access = jwt.generateAccessToken(user.getEmail(), user.getId(),
+                user.getRoles()
+                        .stream()
+                        .map(Role::name)
+                        .toList());
         var refresh = jwt.generateRefreshToken(user.getId());
         return new TokenPair(access, refresh);
     }

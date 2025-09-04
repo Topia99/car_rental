@@ -1,20 +1,20 @@
+server:
+  port: ${SERVER_PORT:8082}
+
 spring:
-  application:
-    name: car-service
   datasource:
-    url: jdbc:postgresql://localhost:5432/carrental
-    username: jasonzeng
-    password: ""
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://db:5432/carrental}
+    username: ${SPRING_DATASOURCE_USERNAME:carrental}
+    password: ${SPRING_DATASOURCE_PASSWORD:secret}
   jpa:
     hibernate:
       ddl-auto: update
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
     open-in-view: false
-  logging:
-    level:
-      org.hibernate.SQL: debug
+    properties:
+      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
 
-server:
-  port: 8082
+security:
+  jwt:
+    secret: ${APP_JWT_SECRET:DYOKLYRVAeBuprgaqNsKe8hnAWaQudwjmaSquuxy9og=}
+    access-minutes: ${APP_JWT_ACCESS_MINUTES:15}
+    refresh-days: ${APP_JWT_REFRESH_DAYS:30}

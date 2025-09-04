@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import com.carrental.security.AccountPrincipal;
 
 import java.util.List;
 
@@ -20,13 +21,10 @@ public class CarController {
         this.service = service;
     }
 
-    private Long uid(Authentication auth){
-        Long id = AuthUtil.uid(auth);
-    }
 
     @PostMapping("/me")
-    public CarResponse create(@Valid @RequestBody CreateCarRequest req){
-        return service.create(, req);
+    public CarResponse create(@Valid @RequestBody CreateCarRequest req, @AuthenticationPrincipal AccountPrincipal me){
+        return service.create(me.getId(), req);
     }
 
     @GetMapping("/me")

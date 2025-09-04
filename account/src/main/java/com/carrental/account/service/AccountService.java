@@ -35,6 +35,7 @@ public class AccountService {
         a.setUsername(req.username());
         a.setEmail(req.email());
         a.setPasswordHash(encoder.encode(req.password()));
+        a.addRoles(Role.GUEST); // add default role GUEST as signup
 
         if(req.address() != null) {
             a.setAddress(to(req.address()));
