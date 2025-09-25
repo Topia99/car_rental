@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/carrental
+    username: jasonzeng
+    password: ""
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl_auto: validate  # let Flyway own schema
+
+  flyway:
+    enabled: true
+    location: classpath:db/migration
